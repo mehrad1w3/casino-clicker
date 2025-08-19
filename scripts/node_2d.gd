@@ -2,7 +2,6 @@ extends Node
 
 enum GameState { PLAYER_TURN, DEALER_TURN, ROUND_OVER }
 var game_state = GameState.PLAYER_TURN
-
 var deck = []
 var player_hand = []
 var dealer_hand = []
