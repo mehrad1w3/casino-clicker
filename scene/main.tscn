@@ -1,0 +1,35 @@
+[gd_scene load_steps=2 format=3 uid="uid://dy1mcwb01f4ac"]
+
+[ext_resource type="Script" uid="uid://bj36sufb103no" path="res://scripts/node_2d.gd" id="1_itxqv"]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_itxqv")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+
+[node name="DealerCards" type="HBoxContainer" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="DealerCards"]
+layout_mode = 2
+
+[node name="PlayerCards" type="HBoxContainer" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="PlayerCards"]
+layout_mode = 2
+
+[node name="buttons" type="HBoxContainer" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="HitButton" type="Button" parent="buttons"]
+layout_mode = 2
+
+[node name="StandButton" type="Button" parent="buttons"]
+layout_mode = 2
+
+[node name="DoubleButton" type="Button" parent="buttons"]
+layout_mode = 2
