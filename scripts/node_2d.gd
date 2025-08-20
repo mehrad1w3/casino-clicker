@@ -14,7 +14,12 @@ var bet_amount = 10
 
 func _ready():
 	start_new_round()
-
+	
+	
+	$buttons/HitButton.pressed.connect(_on_Hit_pressed)
+	$buttons/StandButton.pressed.connect(_on_Stand_pressed)
+	$buttons/DoubleButton.pressed.connect(_on_Double_pressed)
+	
 func start_new_round():
 	deck = generate_deck()
 	shuffle_deck()
@@ -22,8 +27,12 @@ func start_new_round():
 	dealer_hand.clear()
 	player_total = 0
 	dealer_total = 0
-	player_cards.clear()
-	dealer_cards.clear()
+	
+	for c in player_cards.get_children():
+		c.queue_free()
+	for c in dealer_cards.get_children():
+		c.queue_free()
+	
 	game_state = GameState.PLAYER_TURN
 	
 	deal_card_to_player()
@@ -76,13 +85,33 @@ func calculate_total(hand):
 		aces -= 1
 	return total
 
-func show_card(card, container, hidden=false):
-	var lbl = Label.new()
+func show_card(card: Dictionary, container: HBoxContainer, hidden=false):
+	var sprite = Sprite2D.new()
+	var path = ""
+	
 	if hidden:
-		lbl.text = "🂠"
+		path = "res://assets/back.png"
 	else:
-		lbl.text = card.rank + card.suit
-	container.add_child(lbl)
+		var rank = str(card.rank)
+		var suit = ""
+		match card.suit:
+			"♠": suit = "spades"
+			"♥": suit = "hearts"
+			"♦": suit = "diamonds"
+			"♣": suit = "clubs"
+		path = "res://assets/card_%s_%s.png" % [rank, suit]
+	
+	if ResourceLoader.exists(path):
+		var tex = ResourceLoader.load(path)
+		if tex is Texture2D:
+			sprite.texture = tex
+			sprite.centered = true
+			sprite.scale = Vector2(0.1, 0.1)   #cards scale
+	else:
+		print("not found :", path)
+	
+	container.add_child(sprite)
+
 
 func _on_Hit_pressed():
 	if game_state == GameState.PLAYER_TURN:
@@ -114,10 +143,10 @@ func dealer_play():
 func end_round():
 	game_state = GameState.ROUND_OVER
 	if player_total > 21:
-		print("win for player ")
+		print("player busted ")
 	elif dealer_total > 21 or player_total > dealer_total:
-		print("win for player ")
+		print("Player wins")
 	elif player_total == dealer_total:
-		print("draw ")
+		print("tie")
 	else:
-		print("dealer win ")
+		print("dealer win")

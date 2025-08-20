@@ -22,8 +22,12 @@ offset_bottom = 40.0
 layout_mode = 2
 
 [node name="buttons" type="HBoxContainer" parent="."]
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 525.0
+offset_top = 244.0
+offset_right = 867.0
+offset_bottom = 299.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
 
 [node name="HitButton" type="Button" parent="buttons"]
 layout_mode = 2
@@ -33,3 +37,7 @@ layout_mode = 2
 
 [node name="DoubleButton" type="Button" parent="buttons"]
 layout_mode = 2
+
+[connection signal="pressed" from="buttons/HitButton" to="." method="_on_hit_button_pressed"]
+[connection signal="pressed" from="buttons/StandButton" to="." method="_on_stand_button_pressed"]
+[connection signal="pressed" from="buttons/DoubleButton" to="." method="_on_double_button_pressed"]
