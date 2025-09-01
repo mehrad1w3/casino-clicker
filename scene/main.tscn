@@ -5,39 +5,50 @@
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_itxqv")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-
-[node name="DealerCards" type="HBoxContainer" parent="."]
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="Label" type="Label" parent="DealerCards"]
-layout_mode = 2
-
-[node name="PlayerCards" type="HBoxContainer" parent="."]
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="Label" type="Label" parent="PlayerCards"]
-layout_mode = 2
-
-[node name="buttons" type="HBoxContainer" parent="."]
-offset_left = 525.0
-offset_top = 244.0
-offset_right = 867.0
-offset_bottom = 299.0
+[node name="CenterContainer" type="CenterContainer" parent="."]
+offset_right = 1152.0
+offset_bottom = 648.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="HitButton" type="Button" parent="buttons"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
 layout_mode = 2
 
-[node name="StandButton" type="Button" parent="buttons"]
+[node name="DealerCards" type="HBoxContainer" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer/DealerCards"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+
+[node name="PlayerCards" type="HBoxContainer" parent="CenterContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="DoubleButton" type="Button" parent="buttons"]
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer/PlayerCards"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+
+[node name="Sprite2D" type="Sprite2D" parent="CenterContainer/VBoxContainer"]
+position = Vector2(-20, -20)
+
+[node name="buttons" type="HBoxContainer" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+
+[node name="HitButton" type="Button" parent="CenterContainer/VBoxContainer/buttons"]
 layout_mode = 2
 
-[connection signal="pressed" from="buttons/HitButton" to="." method="_on_hit_button_pressed"]
-[connection signal="pressed" from="buttons/StandButton" to="." method="_on_stand_button_pressed"]
-[connection signal="pressed" from="buttons/DoubleButton" to="." method="_on_double_button_pressed"]
+[node name="StandButton" type="Button" parent="CenterContainer/VBoxContainer/buttons"]
+layout_mode = 2
+
+[node name="DoubleButton" type="Button" parent="CenterContainer/VBoxContainer/buttons"]
+layout_mode = 2
+
+[connection signal="pressed" from="CenterContainer/VBoxContainer/buttons/HitButton" to="." method="_on_hit_button_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/buttons/StandButton" to="." method="_on_stand_button_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/buttons/DoubleButton" to="." method="_on_double_button_pressed"]

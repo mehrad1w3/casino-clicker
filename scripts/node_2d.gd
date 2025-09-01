@@ -9,16 +9,17 @@ var player_total = 0
 var dealer_total = 0
 var bet_amount = 10
 
-@onready var player_cards = $PlayerCards
-@onready var dealer_cards = $DealerCards
+@onready var player_cards = $CenterContainer/VBoxContainer/PlayerCards
+@onready var dealer_cards = $CenterContainer/VBoxContainer/DealerCards
 
 func _ready():
+	
 	start_new_round()
 	
 	
-	$buttons/HitButton.pressed.connect(_on_Hit_pressed)
-	$buttons/StandButton.pressed.connect(_on_Stand_pressed)
-	$buttons/DoubleButton.pressed.connect(_on_Double_pressed)
+	$CenterContainer/VBoxContainer/buttons/HitButton.pressed.connect(_on_Hit_pressed)
+	$CenterContainer/VBoxContainer/buttons/StandButton.pressed.connect(_on_Stand_pressed)
+	$CenterContainer/VBoxContainer/buttons/DoubleButton.pressed.connect(_on_Double_pressed)
 	
 func start_new_round():
 	deck = generate_deck()
@@ -84,9 +85,9 @@ func calculate_total(hand):
 		total -= 10
 		aces -= 1
 	return total
-
+var CardScene = preload("res://scene/back.tscn")
 func show_card(card: Dictionary, container: HBoxContainer, hidden=false):
-	var sprite = Sprite2D.new()
+	var sprite = CardScene.instantiate()  # کارت جدید از Scene
 	var path = ""
 	
 	if hidden:
@@ -135,10 +136,27 @@ func _on_Double_pressed():
 			end_round()
 
 func dealer_play():
-	dealer_cards.get_child(0).text = dealer_hand[0].rank + dealer_hand[0].suit
+	# کارت اول دیلر رو برمی‌داریم (hidden بود → باید برگردونیم)
+	if dealer_cards.get_child_count() > 0:
+		var sprite = dealer_cards.get_child(0) as Sprite2D
+		if sprite:
+			var first_card = dealer_hand[0]
+			var rank = str(first_card.rank)
+			var suit = ""
+			match first_card.suit:
+				"♠": suit = "spades"
+				"♥": suit = "hearts"
+				"♦": suit = "diamonds"
+				"♣": suit = "clubs"
+			var path = "res://assets/card_%s_%s.png" % [rank, suit]
+			if ResourceLoader.exists(path):
+				sprite.texture = load(path)
+
+	# بعدش بازی دیلر ادامه پیدا کنه
 	while dealer_total < 17:
 		deal_card_to_dealer()
 	end_round()
+
 
 func end_round():
 	game_state = GameState.ROUND_OVER
