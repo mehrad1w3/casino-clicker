@@ -13,6 +13,8 @@ var bet_amount = 10
 @onready var dealer_cards = $CenterContainer/VBoxContainer/DealerCards
 
 func _ready():
+	player_cards.add_theme_constant_override("separation", 20)
+	dealer_cards.add_theme_constant_override("separation", 20)
 	
 	start_new_round()
 	
@@ -87,7 +89,7 @@ func calculate_total(hand):
 	return total
 var CardScene = preload("res://scene/back.tscn")
 func show_card(card: Dictionary, container: HBoxContainer, hidden=false):
-	var sprite = CardScene.instantiate()  # کارت جدید از Scene
+	var sprite = CardScene.instantiate()  # new card from Scene
 	var path = ""
 	
 	if hidden:
@@ -136,7 +138,6 @@ func _on_Double_pressed():
 			end_round()
 
 func dealer_play():
-	# کارت اول دیلر رو برمی‌داریم (hidden بود → باید برگردونیم)
 	if dealer_cards.get_child_count() > 0:
 		var sprite = dealer_cards.get_child(0) as Sprite2D
 		if sprite:
@@ -152,7 +153,7 @@ func dealer_play():
 			if ResourceLoader.exists(path):
 				sprite.texture = load(path)
 
-	# بعدش بازی دیلر ادامه پیدا کنه
+	
 	while dealer_total < 17:
 		deal_card_to_dealer()
 	end_round()
