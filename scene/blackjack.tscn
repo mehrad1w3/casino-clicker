@@ -1,9 +1,9 @@
 [gd_scene load_steps=2 format=3 uid="uid://dy1mcwb01f4ac"]
 
-[ext_resource type="Script" uid="uid://bj36sufb103no" path="res://scripts/node_2d.gd" id="1_itxqv"]
+[ext_resource type="Script" uid="uid://bj36sufb103no" path="res://scripts/blackjack.gd" id="1_c2epf"]
 
 [node name="Node2D" type="Node2D"]
-script = ExtResource("1_itxqv")
+script = ExtResource("1_c2epf")
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
 offset_right = 1152.0
@@ -24,6 +24,9 @@ layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 0
 
+[node name="MarginContainer" type="MarginContainer" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+
 [node name="PlayerCards" type="HBoxContainer" parent="CenterContainer/VBoxContainer"]
 layout_mode = 2
 
@@ -32,9 +35,6 @@ layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 8
 
-[node name="Sprite2D" type="Sprite2D" parent="CenterContainer/VBoxContainer"]
-position = Vector2(-20, -20)
-
 [node name="buttons" type="HBoxContainer" parent="CenterContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
@@ -42,12 +42,15 @@ size_flags_vertical = 0
 
 [node name="HitButton" type="Button" parent="CenterContainer/VBoxContainer/buttons"]
 layout_mode = 2
+text = "hit"
 
 [node name="StandButton" type="Button" parent="CenterContainer/VBoxContainer/buttons"]
 layout_mode = 2
+text = "stand"
 
 [node name="DoubleButton" type="Button" parent="CenterContainer/VBoxContainer/buttons"]
 layout_mode = 2
+text = "double"
 
 [connection signal="pressed" from="CenterContainer/VBoxContainer/buttons/HitButton" to="." method="_on_hit_button_pressed"]
 [connection signal="pressed" from="CenterContainer/VBoxContainer/buttons/StandButton" to="." method="_on_stand_button_pressed"]

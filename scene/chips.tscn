@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://by84m7ft5sqev"]
 
-[ext_resource type="Script" uid="uid://bal5vg42mfhnc" path="res://coinclicker.gd" id="1_m63jn"]
+[ext_resource type="Script" uid="uid://bal5vg42mfhnc" path="res://scripts/coinclicker.gd" id="1_m63jn"]
 [ext_resource type="Texture2D" uid="uid://d2r8sji5xle0c" path="res://icon.svg" id="2_0rd3l"]
 
 [node name="mainclickbut" type="Control"]
