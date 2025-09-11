@@ -1,0 +1,32 @@
+[gd_scene load_steps=3 format=3 uid="uid://by84m7ft5sqev"]
+
+[ext_resource type="Script" uid="uid://bal5vg42mfhnc" path="res://coinclicker.gd" id="1_m63jn"]
+[ext_resource type="Texture2D" uid="uid://d2r8sji5xle0c" path="res://icon.svg" id="2_0rd3l"]
+
+[node name="mainclickbut" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_m63jn")
+
+[node name="chipsbutten" type="TextureButton" parent="."]
+layout_mode = 0
+offset_left = 503.0
+offset_top = 223.0
+offset_right = 631.0
+offset_bottom = 351.0
+texture_normal = ExtResource("2_0rd3l")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 442.0
+offset_top = 172.0
+offset_right = 699.0
+offset_bottom = 207.0
+theme_override_font_sizes/font_size = 25
+text = "Chips : 100000000000"
+
+[connection signal="pressed" from="chipsbutten" to="." method="_on_chipsbutten_pressed"]
