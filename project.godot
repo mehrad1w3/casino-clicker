@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="black jacks"
-run/main_scene="uid://dy1mcwb01f4ac"
+run/main_scene="uid://2t332o8kqkgu"
 config/features=PackedStringArray("4.4", "Mobile")
 config/icon="res://icon.svg"
 

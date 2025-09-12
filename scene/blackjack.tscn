@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bj36sufb103no" path="res://scripts/blackjack.gd" id="1_c2epf"]
 
-[node name="Node2D" type="Node2D"]
+[node name="blackjack" type="Node2D"]
 script = ExtResource("1_c2epf")
 
 [node name="CenterContainer" type="CenterContainer" parent="."]

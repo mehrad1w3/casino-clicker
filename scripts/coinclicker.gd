@@ -14,10 +14,10 @@ func _physics_process(_delta: float) -> void:
 func _on_chipsbutten_pressed() -> void:
 	chips += 1
 
-func _on_StartBlackjack_pressed() -> void:
-	
-	var blackjack = get_node("res://scene/main.tscn")
-	if blackjack:
-		blackjack.bet_amount = chips
-		blackjack.start_new_round()
-		chips = 0  # reset chips after betting
+func _on_start_blackjack_pressed() -> void:
+	var blackjack_scene = preload("res://scene/blackjack.tscn")
+	var blackjack = blackjack_scene.instantiate()
+	get_tree().root.add_child(blackjack)   # main tree
+	blackjack.bet_amount = chips
+	blackjack.start_new_round()
+	chips = 0

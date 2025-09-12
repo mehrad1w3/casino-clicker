@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://bal5vg42mfhnc" path="res://scripts/coinclicker.gd" id="1_m63jn"]
 [ext_resource type="Texture2D" uid="uid://d2r8sji5xle0c" path="res://icon.svg" id="2_0rd3l"]
 
-[node name="mainclickbut" type="Control"]
+[node name="Clicker" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -29,4 +29,13 @@ offset_bottom = 207.0
 theme_override_font_sizes/font_size = 25
 text = "Chips : 100000000000"
 
+[node name="StartBlackjack" type="Button" parent="."]
+layout_mode = 0
+offset_left = 885.0
+offset_top = 116.0
+offset_right = 893.0
+offset_bottom = 124.0
+scale = Vector2(14.6873, 10.4242)
+
 [connection signal="pressed" from="chipsbutten" to="." method="_on_chipsbutten_pressed"]
+[connection signal="pressed" from="StartBlackjack" to="." method="_on_start_blackjack_pressed"]
