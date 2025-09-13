@@ -5,7 +5,7 @@ var chips: int = 0
 @onready var label = $Label
 
 func _ready() -> void:
-	chips = 0
+	
 	label.text = "Chips: " + str(chips)
 
 func _physics_process(_delta: float) -> void:
@@ -20,4 +20,3 @@ func _on_start_blackjack_pressed() -> void:
 	get_tree().root.add_child(blackjack)   # main tree
 	blackjack.bet_amount = chips
 	blackjack.start_new_round()
-	chips = 0

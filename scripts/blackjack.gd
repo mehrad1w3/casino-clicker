@@ -8,15 +8,13 @@ var dealer_hand: Array = []
 var player_total: int = 0
 var dealer_total: int = 0
 var bet_amount: int = 10
-
+var round_over = false
 @onready var player_cards = $CenterContainer/VBoxContainer/PlayerCards
 @onready var dealer_cards = $CenterContainer/VBoxContainer/DealerCards
 
 func _ready():
 	player_cards.add_theme_constant_override("separation", 20)
 	dealer_cards.add_theme_constant_override("separation", 20)
-
-	start_new_round()
 
 	$CenterContainer/VBoxContainer/buttons/HitButton.pressed.connect(_on_Hit_pressed)
 	$CenterContainer/VBoxContainer/buttons/StandButton.pressed.connect(_on_Stand_pressed)
@@ -37,13 +35,19 @@ func start_new_round():
 	for c in dealer_cards.get_children():
 		c.queue_free()
 
+	
+	deck = generate_deck()
+	shuffle_deck()
+	player_hand.clear()
+	dealer_hand.clear()
+	player_total = 0
+	dealer_total = 0
 	game_state = GameState.PLAYER_TURN
 
-	# Deal cards
 	deal_card_to_player()
-	deal_card_to_dealer(true) # hidden card
 	deal_card_to_player()
-	deal_card_to_dealer()
+	deal_card_to_dealer(true)  
+	deal_card_to_dealer()   
 
 
 func generate_deck() -> Array:
@@ -187,13 +191,27 @@ func dealer_play():
 	end_round()
 
 
+signal round_finished(chips_won: int)
+
 func end_round():
+	if round_over:
+		return
+	round_over = true
+	
 	game_state = GameState.ROUND_OVER
+	print("Bet for this round: ", bet_amount)
+
+	var chips_won = 0
+
 	if player_total > 21:
-		print("❌ Player busted")
+		print("Player busted")
 	elif dealer_total > 21 or player_total > dealer_total:
-		print("✅ Player wins")
+		print("Player wins")
+		chips_won = bet_amount * 2  # double the bet
 	elif player_total == dealer_total:
-		print("➖ Tie")
+		print("Tie")
+		chips_won = bet_amount      # back the bet
 	else:
-		print("🏆 Dealer wins")
+		chips_won = 0
+
+	emit_signal("round_finished", chips_won)
